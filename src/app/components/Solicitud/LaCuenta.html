@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Administra tus comandas</title>
+    <link href="http://ordenofacil.com/Dashboard/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://ordenofacil.com/Dashboard/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://ordenofacil.com/Dashboard/build/css/custom.min.css" rel="stylesheet">
+</head>
+<body>
+
+
+    <script src="HTTPS://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+        <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3> La Cuenta </h3>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+
+                <div class="x_panel">
+                    <div class="x_title">
+
+                      <button type="button" id="btnLevantadas" class="btn btn-primary"   >    <a [routerLink]="[locaComanda]" style="color: inherit; ">
+                        Comandas Levantadas ({{CountComandaL}})</a>
+                      </button>
+
+
+                      <button type="button" id="btnLevantadas" class="btn btn-primary"   >    <a [routerLink]="[locaTermino]" style="color: inherit; ">
+                        Comandas terminadas en Cocina ({{CountFinishL}})</a>
+                      </button>
+
+                      <button type="button" id="btnCuenta" class="btn btn-primary"   >    <a [routerLink]="[locaCuenta]" style="color: inherit; ">
+                        La Cuenta</a>
+                      </button>
+
+
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>En pantalla se muestran todas los estados de cuenta de Comandas aun no cobradas.<span class="glyphicon glyphicon-question-sign" data-toggle='tooltip' data-placement='top' title='la pantalla presenta diferentes opciones para la interaccion con la misma, lo cual convierte su interaccion en información sencible'></span>
+
+                                </p>
+<div class="form-group">
+  <div class="col-md-8">
+  <div class="input-group">
+    <span class="input-group-btn">
+      <button type="button" class="btn btn-primary" (click)="btnBuscar_click()" >Buscar</button>
+    </span>
+  <input type="text" class="form-control" id="txtCodesearch" placeholder="introduzca un codigo para buscarlo">
+</div>
+   </div>
+</div>
+</div>
+</div>
+
+                                    <div *ngFor="let ordenalo of final_datas" id="contieneAll">
+
+
+                                        <div  *ngFor="let Comanda of final_data  " >
+                                          <div *ngIf="ordenalo.id==Comanda._id ">
+
+
+                                           <div *ngIf="Comanda.Estatus=='4' || Comanda.Estatus=='7' " class="alert alert-success alert-dismissible fade in" role="alert" >
+                                           <div class="alert alert-info alert-dismissible fade in" role="alert" >
+                                          <span style="font-size:x-large" *ngIf="Comanda.mesa!=undefined"><strong> Mesa: {{Comanda.mesa}} - </strong></span> <span style="font-size:x-large" ><strong>  Codigo: {{Comanda.codigoStr}}</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                           <span style="font-size:x-large" *ngIf="ordenalo.Mesa!=undefined"><strong>  Mesa: {{ordenalo.Mesa}}</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                           <button type="button" class="btn btn-primary" (click)="PayComand(Comanda)" [id]="Comanda.codigoStr" *ngIf="Comanda.Estatus=='4'">Cobrar</button><br/>
+                                         Terminado en cocina: {{Comanda.fecha_Entrega}}
+                                           </div>
+                                           <div class="input-group" *ngFor="let plato of Comanda.platillos">
+                                          <strong *ngIf="plato.Estatus=='2'"><span style="font-size:large" *ngIf="plato.Cantidad">Cantidad:{{plato.Cantidad}}   {{plato.Platillo}}  </span></strong><br><span *ngIf="plato.Cantidad && plato.Estatus=='2'">Precio: ${{plato.precio}}</span>
+                                          <strong *ngIf="plato.Estatus=='0'&& plato.Estatus=='1' "><span style="font-size:large" *ngIf="plato.Cantidad">Cantidad:{{plato.Cantidad}}   {{plato.Platillo}}  Aun Preparando </span></strong>
+                                          <div class="input-group-btn" >
+                                          <span style="font-size:medium"> </span></div>
+                                          </div>
+<span style="font-size:x-large" ><strong > Total:${{getSum(Comanda.codigoStr)}}  </strong></span>
+                                          </div>
+
+
+</div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+
+            </div>
+
+
+
+    <!-- jQuery -->
+    <script src="http://ordenofacil.com/Dashboard/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="http://ordenofacil.com/Dashboard/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="http://ordenofacil.com/Dashboard/build/js/custom.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+        </body>
+        </html>
